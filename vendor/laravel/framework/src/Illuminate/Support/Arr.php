@@ -3,6 +3,7 @@
 namespace Illuminate\Support;
 
 use ArrayAccess;
+use InvalidArgumentException;
 use Illuminate\Support\Traits\Macroable;
 
 class Arr
@@ -55,6 +56,33 @@ class Arr
             }
 
             $results = array_merge($results, $values);
+        }
+
+        return $results;
+    }
+
+    /**
+     * Cross join the given arrays, returning all possible permutations.
+     *
+     * @param  array  ...$arrays
+     * @return array
+     */
+    public static function crossJoin(...$arrays)
+    {
+        $results = [[]];
+
+        foreach ($arrays as $index => $array) {
+            $append = [];
+
+            foreach ($results as $product) {
+                foreach ($array as $item) {
+                    $product[$index] = $item;
+
+                    $append[] = $product;
+                }
+            }
+
+            $results = $append;
         }
 
         return $results;
@@ -134,7 +162,13 @@ class Arr
     public static function first($array, callable $callback = null, $default = null)
     {
         if (is_null($callback)) {
-            return empty($array) ? value($default) : reset($array);
+            if (empty($array)) {
+                return value($default);
+            }
+
+            foreach ($array as $item) {
+                return $item;
+            }
         }
 
         foreach ($array as $key => $value) {
@@ -356,6 +390,10 @@ class Arr
             } else {
                 $itemKey = data_get($item, $key);
 
+                if (is_object($itemKey) && method_exists($itemKey, '__toString')) {
+                    $itemKey = (string) $itemKey;
+                }
+
                 $results[$itemKey] = $itemValue;
             }
         }
@@ -416,6 +454,38 @@ class Arr
     }
 
     /**
+     * Get a random value from an array.
+     *
+     * @param  array  $array
+     * @param  int|null  $amount
+     * @return mixed
+     *
+     * @throws \InvalidArgumentException
+     */
+    public static function random($array, $amount = null)
+    {
+        if (($requested = $amount ?: 1) > ($count = count($array))) {
+            throw new InvalidArgumentException(
+                "You requested {$requested} items, but there are only {$count} items in the array."
+            );
+        }
+
+        if (is_null($amount)) {
+            return $array[array_rand($array)];
+        }
+
+        $keys = array_rand($array, $amount);
+
+        $results = [];
+
+        foreach ((array) $keys as $key) {
+            $results[] = $array[$key];
+        }
+
+        return $results;
+    }
+
+    /**
      * Set an array item to a given value using "dot" notation.
      *
      * If no key is given to the method, the entire array will be replaced.
@@ -452,13 +522,26 @@ class Arr
     }
 
     /**
-     * Sort the array using the given callback.
+     * Shuffle the given array and return the result.
      *
      * @param  array  $array
-     * @param  callable  $callback
      * @return array
      */
-    public static function sort($array, callable $callback)
+    public static function shuffle($array)
+    {
+        shuffle($array);
+
+        return $array;
+    }
+
+    /**
+     * Sort the array using the given callback or "dot" notation.
+     *
+     * @param  array  $array
+     * @param  callable|string  $callback
+     * @return array
+     */
+    public static function sort($array, $callback)
     {
         return Collection::make($array)->sortBy($callback)->all();
     }
@@ -496,5 +579,16 @@ class Arr
     public static function where($array, callable $callback)
     {
         return array_filter($array, $callback, ARRAY_FILTER_USE_BOTH);
+    }
+
+    /**
+     * If the given value is not an array, wrap it in one.
+     *
+     * @param  mixed  $value
+     * @return array
+     */
+    public static function wrap($value)
+    {
+        return ! is_array($value) ? [$value] : $value;
     }
 }

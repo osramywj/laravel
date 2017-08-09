@@ -16,8 +16,11 @@ Route::get('/', function () {
 });
 //文章列表页
 Route::get('posts','PostController@index');
+
+
 //文章详情页
-Route::get('posts/{post}','PostController@show');
+Route::get('posts/{post}','PostController@show')->where(['post'=>'[0-9]+']);
+
 //创建文章页面
 Route::get('posts/create','PostController@create');
 //创建文章
