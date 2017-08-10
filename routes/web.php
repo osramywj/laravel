@@ -14,6 +14,25 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+//注册页面
+Route::get('register','RegisterController@index');
+//注册行为
+Route::post('register','RegisterController@register');
+//登录页面
+Route::get('login','LoginController@index');
+//登录行为
+Route::post('login','LoginController@login');
+//登出行为
+Route::get('logout','LoginController@logout');
+//个人设置页面
+Route::get('user/setting','UserController@setting');
+//个人设置行为
+Route::post('user/setting','UserController@settingStore');
+
+
+
+
 //文章列表页
 Route::get('posts','PostController@index');
 
@@ -28,7 +47,7 @@ Route::post('posts','PostController@store');
 //编辑文章页面
 Route::get('posts/{post}/edit','PostController@edit');
 //编辑文章
-Route::put('posts/edit','PostController@update');
+Route::put('posts/{post}','PostController@update');
 
 //删除文章
-Route::post('posts/delete','PostController@delete');
+Route::get('posts/{post}/delete','PostController@delete');
