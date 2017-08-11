@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Comment;
 use App\Post;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Input;
 
 class PostController extends Controller
@@ -52,7 +54,11 @@ class PostController extends Controller
             'title' =>'required|min:3|max:6',
             'content' =>'required|min:8',
         ]);
-        //TODO:用户的模块验证
+        //TODO:用户的模块验证,可通过中间件
+//        \Auth::authorize('update',$post);
+//        if (!Gate::allows('update-post', $post)) {
+//            return redirect('/posts');
+//        }
 //        $post = Post::find($post->id);
         if ($post->update(\request()->all())) {
             return redirect('/posts/'.$post->id);
@@ -64,10 +70,22 @@ class PostController extends Controller
     public function delete(Post $post)
     {
         //TODO:用户的模块验证
+        \Auth::authorize('delete',$post);
         if ($post->delete()) {
             return redirect('posts');
         } else {
             echo '删除失败';
+        }
+    }
+
+    public function comment(Post $post)
+    {
+        $post_id = $post->id;
+        $user_id = \Auth::id();
+        $content = \request('content');
+        $res = Comment::create(compact('post_id','user_id','content'));
+        if ($res) {
+            return back();//直接返回上一页
         }
     }
 }

@@ -30,7 +30,7 @@ Route::get('user/setting','UserController@setting');
 //个人设置行为
 Route::post('user/setting','UserController@settingStore');
 
-
+Route::get('test','LoginController@test');
 
 
 //文章列表页
@@ -47,7 +47,10 @@ Route::post('posts','PostController@store');
 //编辑文章页面
 Route::get('posts/{post}/edit','PostController@edit');
 //编辑文章
-Route::put('posts/{post}','PostController@update');
+Route::put('posts/{post}','PostController@update')->middleware('can:update,post');
 
 //删除文章
 Route::get('posts/{post}/delete','PostController@delete');
+
+//提交评论
+Route::post('posts/{post}/comment','PostController@comment');

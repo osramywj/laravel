@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 
 class LoginController extends Controller
@@ -25,7 +26,9 @@ class LoginController extends Controller
 //        //逻辑
         $userInfo = request(['email','password']);
         $is_remember = boolval(\request('is_remember'));
+
         if (Auth::attempt($userInfo, $is_remember)) {
+            $request->session()->put('user',['user_id'=>Auth::id(),'user_name'=>Auth::user()->name]);
             return redirect('posts');
         } else {
             return redirect()->back()->withErrors('登录失败')->withInput();
@@ -47,5 +50,10 @@ class LoginController extends Controller
     {
         Auth::logout();
         return redirect('login');
+    }
+
+    public function test(Request $request)
+    {
+        dd($request->session()->all());
     }
 }
