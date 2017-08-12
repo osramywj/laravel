@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Comment;
 use App\Post;
+use App\Zan;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -15,12 +16,13 @@ class PostController extends Controller
 {
     public function index()
     {
-        $posts =Post::orderBy('created_at','desc')->paginate(5);
+        $posts =Post::withCount('comment','zans')->orderBy('created_at','desc')->paginate(5);
         return view('post.index',compact('posts'));
     }
 
     public function show(Post $post)
     {
+        $post->load('comment');//在渲染模板之前预加载comment
         return view('post.show',compact('post'));
     }
 
@@ -87,5 +89,20 @@ class PostController extends Controller
         if ($res) {
             return back();//直接返回上一页
         }
+    }
+
+    public function zan(Post $post)
+    {
+        $post_id = $post->id;
+        $user_id = \Auth::id();
+        Zan::firstOrCreate(compact('post_id','user_id'));
+        return back();
+    }
+
+    public function unzan(Post $post)
+    {
+
+       $post->zan(\Auth::id())->delete();
+       return back();
     }
 }
