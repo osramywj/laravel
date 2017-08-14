@@ -59,8 +59,8 @@
                     <a href="#" class="blog-nav-item dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{isset(\Auth::user()->name) ? \Auth::user()->name:'您好，请登录'}} <span class="caret"></span></a>
                     @if(isset(\Auth::user()->name))
                     <ul class="dropdown-menu">
-                        <li><a href="/user/5">我的主页</a></li>
-                        <li><a href="/user/5/setting">个人设置</a></li>
+                        <li><a href="/user/{{\Auth::id()}}">我的主页</a></li>
+                        <li><a href="/user/{{\Auth::id()}}/setting">个人设置</a></li>
                         <li><a href="/logout">登出</a></li>
                     </ul>
                     @endif

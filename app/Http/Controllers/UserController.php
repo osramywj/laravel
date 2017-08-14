@@ -20,24 +20,37 @@ class UserController extends Controller
     public function show(User $user)
     {
         //当前用户的关注数|粉丝数|文章数
-        //当前用户的文章列表
-//        $user = $user->withCount(['star','fan','post']);
         $user = User::withCount(['star','fan','post'])->find($user->id);
-
+        //当前用户的文章列表
+        //获得的是个二维数组;相当于表里的n条数据的集合
+        $posts = $user->post;
+//        等同于$posts = $user->post()->get();
+//        $posts = $user->post();//不同
         //当前用户的关注列表，被关注者的关注数|粉丝数|文章数
+        $stars = $user->star;
+        $star_users = User::withCount(['star','fan','post'])->whereIn('id',$stars->pluck('star_id'))->get();
 
         //当前用户的粉丝列表
-
-        return view('user.show',compact('user'));
+        $fans = $user->fan;
+        $fan_users = User::withCount(['star', 'fan', 'post'])->whereIn('id',$fans->pluck('fan_id'))->get();
+        return view('user.show',compact('user','star_users','fan_users','posts'));
     }
     //关注
-    public function fan()
+    public function fan(User $user)
     {
-        return;
+        $me = \Auth::user();
+        $me->doFan($user->id);
+        return [
+            'error'=>0,
+        ];
     }
     //取消关注
-    public function unfan()
+    public function unfan(User $user)
     {
-        return ;
+        $me = \Auth::user();
+        $me->unfan($user->id);
+        return [
+            'error'=>0
+        ];
     }
 }
