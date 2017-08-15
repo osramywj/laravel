@@ -25,7 +25,7 @@ class UserController extends Controller
         //获得的是个二维数组;相当于表里的n条数据的集合
         $posts = $user->post;
 //        等同于$posts = $user->post()->get();
-//        $posts = $user->post();//不同
+
         //当前用户的关注列表，被关注者的关注数|粉丝数|文章数
         $stars = $user->star;
         $star_users = User::withCount(['star','fan','post'])->whereIn('id',$stars->pluck('star_id'))->get();
@@ -42,15 +42,17 @@ class UserController extends Controller
         $me->doFan($user->id);
         return [
             'error'=>0,
+            'msg'=>''
         ];
     }
     //取消关注
     public function unfan(User $user)
     {
         $me = \Auth::user();
-        $me->unfan($user->id);
+        $me->doUnFan($user->id);
         return [
-            'error'=>0
+            'error'=>0,
+            'msg'=>''
         ];
     }
 }

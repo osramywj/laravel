@@ -28,20 +28,16 @@ class User extends Authenticatable
     //关注行为
     public function doFan($uid)
     {
-//        $data = [
-//            'star_id'=>$uid
-//        ];
+
         $star =  new Fan();
         $star ->star_id = $uid;
-        //|$this->star()调用了上面的star()方法，返回所有的自己的所有关注
-        return $this->star()->create($star);
+        $star->fan_id = \Auth::id();
+        return $star->save();
     }
     //取消关注
     public function doUnFan($uid)
     {
-        $star = new Fan();
-        $star->star_id = $uid;
-        return $this->star()->destroy($star);
+        return Fan::where('star_id',$uid)->delete();
     }
 
     //判断当前用户是否被uid关注了

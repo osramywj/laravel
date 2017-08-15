@@ -38,28 +38,26 @@
                     </div>
                     <!-- /.tab-pane -->
                     <div class="tab-pane" id="tab_2">
-                        @foreach($star_users as $star)
-                        <div class="blog-post" style="margin-top: 30px">
-                            <p class="">{{$star->name}}</p>
-                            <p class="">关注：{{$star->star_count}} | 粉丝：{{$star->fan_count}}｜ 文章：{{$star->post_count}}</p>
+                        @if($star_users)
+                            @foreach($star_users as $star)
+                            <div class="blog-post" style="margin-top: 30px">
+                                <p class="">{{$star->name}}</p>
+                                <p class="">关注：{{$star->star_count}} | 粉丝：{{$star->fan_count}}｜ 文章：{{$star->post_count}}</p>
 
-                            <div>
-                                <button class="btn btn-default like-button" like-value="1" like-user="6" _token="MESUY3topeHgvFqsy9EcM916UWQq6khiGHM91wHy" type="button">取消关注</button>
+                                @include('layouts.like', ['target_user' => $star])
+
                             </div>
-
-                        </div>
-                        @endforeach
+                            @endforeach
+                        @endif
                     </div>
                     <!-- /.tab-pane -->
                     <div class="tab-pane" id="tab_3">
                         @foreach($fan_users as $fan)
                             <div class="blog-post" style="margin-top: 30px">
                                 <p class="">{{$fan->name}}</p>
-                                <p class="">关注：{{$star->star_count}} | 粉丝：{{$fan->fan_count}}｜ 文章：{{$fan->post_count}}</p>
+                                <p class="">关注：{{$fan->star_count}} | 粉丝：{{$fan->fan_count}}｜ 文章：{{$fan->post_count}}</p>
 
-                                <div>
-                                    <button class="btn btn-default like-button" like-value="1" like-user="6" _token="MESUY3topeHgvFqsy9EcM916UWQq6khiGHM91wHy" type="button">取消关注</button>
-                                </div>
+                                @include('layouts.like', ['target_user' => $fan])
 
                             </div>
                         @endforeach
