@@ -65,3 +65,8 @@ Route::get('user/{user}','UserController@show');
 Route::post('user/{user}/fan','UserController@fan');
 //取消关注
 Route::post('user/{user}/unfan','UserController@unfan');
+
+//专题
+Route::get('topic/{topic}','TopicController@show');
+//投稿
+Route::post('topic/{post}','TopicController@submit');
