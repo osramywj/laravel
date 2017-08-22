@@ -21,4 +21,9 @@ class LoginController extends Controller
         ]);
         return ;
     }
+
+    public function logout()
+    {
+        return;
+    }
 }
