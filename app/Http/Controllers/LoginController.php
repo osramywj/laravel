@@ -20,7 +20,6 @@ class LoginController extends Controller
         $this->validate($request,[
             'email' =>'required|email',
             'password' =>'required|min:3|max:10',
-            'is_remember' =>'integer'
         ]);
 //
 //        //逻辑

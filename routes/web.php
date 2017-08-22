@@ -69,4 +69,7 @@ Route::post('user/{user}/unfan','UserController@unfan');
 //专题
 Route::get('topic/{topic}','TopicController@show');
 //投稿
-Route::post('topic/{post}','TopicController@submit');
+Route::get('topic/{topic}/submit','TopicController@submit');
+
+//后台
+include_once 'admin.php';
