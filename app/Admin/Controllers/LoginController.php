@@ -17,13 +17,15 @@ class LoginController extends Controller
         $this->validate($request,[
             'email' =>'required|email',
             'password' =>'required|min:3|max:10',
-            'is_remember' =>'integer'
+            'is_remember' =>'integer',
         ]);
+
         return ;
     }
 
     public function logout()
     {
+
         return;
     }
 }

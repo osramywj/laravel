@@ -9,6 +9,15 @@ class Post extends Model
 {
     protected $guarded = ['_token'];
 
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::addGlobalScope('available', function (\Illuminate\Database\Eloquent\Builder $builder) {
+            $builder->whereIn('status',[0,1]);
+        });
+    }
+
     public function user()
     {
         return $this->belongsTo('App\User','user_id','id');
