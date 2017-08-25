@@ -17,6 +17,6 @@ Route::group(['prefix'=>'admin'], function () {
     //审核页面
     Route::get('posts','\App\Admin\Controllers\PostController@index');
     //审核动作
-    Route::post('posts/{$post}/check','\App\Admin\Controllers\PostController@check');
+    Route::post('posts/{post}/check','\App\Admin\Controllers\PostController@check');
 
 });

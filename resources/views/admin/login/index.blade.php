@@ -49,6 +49,9 @@
                 <div class="col-xs-4">
                     <button type="submit" class="btn btn-primary btn-block btn-flat">登陆</button>
                 </div>
+                <a href="https://open.weixin.qq.com/connect/qrconnect?appid=your appid &redirect_uri=http://www.sunmil.cn/passport-linshi.html&response_type=code&scope=snsapi_login&state=STATE#wechat_redirect" rel="external nofollow" >微信登录</a>
+                <br><br>
+
                 <!-- /.col -->
             </div>
         </form>

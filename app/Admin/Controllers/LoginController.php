@@ -14,11 +14,13 @@ class LoginController extends Controller
     //登录操作
     public function login(Request $request)
     {
+        //验证
         $this->validate($request,[
             'email' =>'required|email',
             'password' =>'required|min:3|max:10',
             'is_remember' =>'integer',
         ]);
+
 
         return ;
     }

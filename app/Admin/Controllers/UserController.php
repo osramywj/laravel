@@ -2,6 +2,7 @@
 namespace App\Admin\Controllers;
 
 use App\AdminUser;
+use App\Category;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -29,6 +30,13 @@ class UserController extends Controller
         $res = AdminUser::firstOrCreate(compact('name'));
         $res && AdminUser::where('id',$res->id)->update(compact('password'));
         return redirect('admin/users');
+    }
+
+    public function test()
+    {
+        $res = Category::with('allChildrenCategorys')->where('parent_id',0)->get();
+
+        dd($res->toArray());
     }
 
 

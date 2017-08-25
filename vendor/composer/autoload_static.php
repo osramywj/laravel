@@ -273,12 +273,17 @@ class ComposerStaticInitf552daa799ac2a29694936bdf07fc081
 
     public static $classMap = array (
         'AlterPostsTable' => __DIR__ . '/../..' . '/database/migrations/2017_08_23_153602_alter_posts_table.php',
+        'CreateAdminRolesTable' => __DIR__ . '/../..' . '/database/migrations/2017_08_25_160709_create_admin_roles_table.php',
         'CreateAdminUsersTable' => __DIR__ . '/../..' . '/database/migrations/2017_08_23_135046_create_admin_users_table.php',
+        'CreateCategoriesTable' => __DIR__ . '/../..' . '/database/migrations/2017_08_24_091004_create_categories_table.php',
         'CreateCommentsTable' => __DIR__ . '/../..' . '/database/migrations/2017_08_11_163558_create_comments_table.php',
         'CreateFansTable' => __DIR__ . '/../..' . '/database/migrations/2017_08_12_151845_create_fans_table.php',
         'CreatePasswordResetsTable' => __DIR__ . '/../..' . '/database/migrations/2014_10_12_100000_create_password_resets_table.php',
+        'CreatePermissionRolesTable' => __DIR__ . '/../..' . '/database/migrations/2017_08_25_160910_create_permission_roles_table.php',
+        'CreatePermissionsTable' => __DIR__ . '/../..' . '/database/migrations/2017_08_25_155640_create_permissions_table.php',
         'CreatePostTopicTable' => __DIR__ . '/../..' . '/database/migrations/2017_08_21_160638_create_post_topic_table.php',
         'CreatePostsTable' => __DIR__ . '/../..' . '/database/migrations/2017_08_08_142950_create_posts_table.php',
+        'CreateRolesTable' => __DIR__ . '/../..' . '/database/migrations/2017_08_25_155608_create_roles_table.php',
         'CreateTopicsTable' => __DIR__ . '/../..' . '/database/migrations/2017_08_21_155419_create_topics_table.php',
         'CreateUsersTable' => __DIR__ . '/../..' . '/database/migrations/2014_10_12_000000_create_users_table.php',
         'CreateZansTable' => __DIR__ . '/../..' . '/database/migrations/2017_08_12_110329_create_zans_table.php',

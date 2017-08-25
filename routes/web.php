@@ -30,7 +30,6 @@ Route::get('user/setting','UserController@setting');
 //个人设置行为
 Route::post('user/setting','UserController@settingStore');
 
-Route::get('test','LoginController@test');
 
 
 //文章列表页
@@ -70,6 +69,10 @@ Route::post('user/{user}/unfan','UserController@unfan');
 Route::get('topic/{topic}','TopicController@show');
 //投稿
 Route::get('topic/{topic}/submit','TopicController@submit');
+
+
+
+
 
 //后台
 include_once 'admin.php';
