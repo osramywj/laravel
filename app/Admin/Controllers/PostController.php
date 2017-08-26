@@ -1,7 +1,6 @@
 <?php
 namespace App\Admin\Controllers;
 
-
 use App\Post;
 use Illuminate\Support\Facades\DB;
 

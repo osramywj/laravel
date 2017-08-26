@@ -22,4 +22,22 @@ class AdminUser extends Authenticatable
     {
         return !!$roles->intersect($this->role)->count();
     }
+
+    //分配角色,参数是对象
+    public function assignRole($role)
+    {
+        return $this->role()->save($role);
+    }
+
+    //删除角色
+    public function deleteRole($role)
+    {
+        return $this->role()->detach($role);
+    }
+
+    //用户是否有权限
+    public function hasPermission($permission)
+    {
+
+    }
 }
