@@ -37,11 +37,11 @@
         <form action="/admin/login" method="post">
             {{csrf_field()}}
             <div class="form-group has-feedback">
-                <input name="name" type="text" class="form-control" placeholder="名字">
+                <input name="name" type="text" class="form-control" placeholder="名字" value="{{old('name')}}">
                 <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
             </div>
             <div class="form-group has-feedback">
-                <input name="password" type="password" class="form-control" placeholder="密码">
+                <input name="password" type="password" class="form-control" placeholder="密码" value="{{old('password')}}">
                 <span class="glyphicon glyphicon-lock form-control-feedback"></span>
             </div>
             <div class="row">
@@ -51,8 +51,11 @@
                 </div>
                 <a href="https://open.weixin.qq.com/connect/qrconnect?appid=your appid &redirect_uri=http://www.sunmil.cn/passport-linshi.html&response_type=code&scope=snsapi_login&state=STATE#wechat_redirect" rel="external nofollow" >微信登录</a>
                 <br><br>
+                @foreach($errors->all() as $error)
+                {{$error}}
+                @endforeach
 
-                <!-- /.col -->
+            <!-- /.col -->
             </div>
         </form>
 

@@ -36,8 +36,11 @@ class AdminUser extends Authenticatable
     }
 
     //用户是否有权限
+    //这个权限所属的角色跟用户拥有的角色是否有交集
+    //因为$this->role是个二维数组，无法直接$this->role->permission,所以采用交集的方式判断
     public function hasPermission($permission)
     {
-
+//        return $permission->permission->intersect($this->role);
+        return $this->isInRoles($permission->role);
     }
 }

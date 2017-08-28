@@ -2,7 +2,8 @@
 namespace App\Admin\Controllers;
 
 use App\AdminUser;
-use App\Category;
+
+use App\Role;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -32,12 +33,19 @@ class UserController extends Controller
         return redirect('admin/users');
     }
 
-    public function test()
+    //分配角色页面
+    public function role(AdminUser $user)
     {
-        $res = Category::with('allChildrenCategorys')->where('parent_id',0)->get();
-
-        dd($res->toArray());
+        $roles = Role::all();
+        $myRoles = $user->role;
+        return view('admin.user.role',compact('user','roles','myRoles'));
     }
 
+    //分配角色操作
+    public function assignRole()
+    {
+        $roles = Role::findMany(request('roles'));
+
+    }
 
 }

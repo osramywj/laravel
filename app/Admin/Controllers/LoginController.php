@@ -1,7 +1,7 @@
 <?php
 namespace App\Admin\Controllers;
 
-use App\Http\Requests\Request;
+use Illuminate\Http\Request;
 
 class LoginController extends Controller
 {
@@ -16,18 +16,22 @@ class LoginController extends Controller
     {
         //验证
         $this->validate($request,[
-            'email' =>'required|email',
+            'name' =>'required',
             'password' =>'required|min:3|max:10',
-            'is_remember' =>'integer',
         ]);
 
+        $userInfo = request(['name', 'password']);
+        if (true == \Auth::guard('admin')->attempt($userInfo)) {
+            return redirect('admin/home');
+        }else{
+            return back()->withErrors('登录失败')->withInput();
+        }
 
-        return ;
     }
 
     public function logout()
     {
-
-        return;
+        \Auth::guard('admin')->logout();
+        return redirect('admin/login');
     }
 }
