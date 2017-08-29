@@ -21,7 +21,7 @@
                                     <div class="checkbox">
                                         <label>
                                             <input type="checkbox" name="roles[]"
-                                                   {{!!$myRoles->contains($role)->count()?'checked':''}}
+                                                   {{$myRoles->contains($role)?'checked':''}}
                                                    value="{{$role->id}}">
                                             {{$role->name}}
                                         </label>

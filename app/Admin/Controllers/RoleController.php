@@ -27,19 +27,22 @@ class RoleController extends Controller
             'name'=>'required|unique:roles',
             'description'=>'required',
         ]);
-        Role::create(request('name','description'));
+        Role::create(request(['name','description']));
     }
 
     //分配权限页面
-    public function permission()
+    public function permission(Role $role)
     {
         $permissions = Permission::all();
-        return view('admin.role.permission',compact('permissions'));
+        $oldPermissions = $role->permission;
+        return view('admin.role.permission',compact('permissions','oldPermissions','role'));
     }
 
     //分配权限操作
-    public function assignPermission()
+    public function assignPermission(Role $role)
     {
-
+        $permissions = request('permissions');
+        $role->permission()->sync($permissions);
+        return back();
     }
 }

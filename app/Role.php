@@ -11,8 +11,8 @@ class Role extends Model
     //当前角色的所有权限
     public function permission()
     {
-        return $this->belongsToMany('\App\Permission','permission_roles','role_id','permission_id')
-            ->withPivot('role_id','permission_id');
+        return $this->belongsToMany('\App\Permission','permission_roles','role_id','perm_id')
+            ->withPivot('role_id','perm_id');
     }
 
     //给角色赋予权限

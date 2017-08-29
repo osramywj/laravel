@@ -14,14 +14,14 @@
                         </div>
                         <!-- /.box-header -->
                         <div class="box-body">
-                            <form action="/admin/roles/1/permission" method="POST">
-                                <input type="hidden" name="_token" value="RPPMc0lhvtynKELDZljXlz9UZI9uNc55ip1P8GCM">
+                            <form action="/admin/role/{{$role->id}}/permission" method="POST">
+                                {{csrf_field()}}
                                 <div class="form-group">
                                     @foreach($permissions as $permission)
                                     <div class="checkbox">
                                         <label>
                                             <input type="checkbox" name="permissions[]"
-                                                   checked
+                                                   {{$oldPermissions->contains($permission)?'checked':''}}
                                                    value="{{$permission->id}}">
                                             {{$permission->name}}
                                         </label>

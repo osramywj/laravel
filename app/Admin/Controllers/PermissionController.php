@@ -20,9 +20,13 @@ class PermissionController extends Controller
     }
 
     //添加权限操作
-    public function store()
+    public function store(Request $request)
     {
-
+        $this->validate($request,[
+            'name'=>'required|unique:permissions',
+            'description'=>'required',
+        ]);
+        Permission::create(\request(['name','description']));
     }
 
 

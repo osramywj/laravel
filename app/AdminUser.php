@@ -12,21 +12,23 @@ class AdminUser extends Authenticatable
     //管理员有哪些角色
     public function role()
     {
-        return $this->belongsToMany('\App\Role','admin_roles','user_id','role_id')
-            ->withPivot('user_id','role_id');
+        return $this->belongsToMany('\App\Role','admin_roles','admin_id','role_id')
+            ->withPivot('admin_id','role_id');
     }
 
     //是否有某个/些角色,返回的是布尔值
 
     public function isInRoles($roles)
     {
-        return !!$roles->intersect($this->role)->count();
+        return !!($roles->intersect($this->role)->count());
     }
 
     //分配角色,参数是对象
+    //会自动填充中间表
     public function assignRole($role)
     {
-        return $this->role()->save($role);
+//        return $this->role()->save($role);
+        return $this->role()->attach($role);
     }
 
     //删除角色

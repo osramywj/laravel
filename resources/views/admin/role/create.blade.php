@@ -35,6 +35,9 @@
                                     <button type="submit" class="btn btn-primary">提交</button>
                                 </div>
                             </form>
+                            @foreach($errors->all() as $error)
+                                {{$error}}
+                            @endforeach
                         </div>
                     </div>
                 </div>

@@ -42,10 +42,23 @@ class UserController extends Controller
     }
 
     //分配角色操作
-    public function assignRole()
+    public function assignRole(AdminUser $user)
     {
-        $roles = Role::findMany(request('roles'));
-
+        $role = request('roles');
+        $user->role()->sync($role);
+//        $roles = Role::findMany(request('roles'));
+//        $myRoles = $user->role;
+//        //要删除的角色
+//        $delRoles = $myRoles->diff($roles);
+//        foreach ($delRoles as $role) {
+//            $user->deleteRole($role);
+//        }
+//        //要增加的角色
+//        $addRoles = $roles->diff($myRoles);
+//        foreach ($addRoles as $role) {
+//            $user->assignRole($role);
+//        }
+        return back();
     }
 
 }
