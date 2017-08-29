@@ -20,7 +20,7 @@ class AdminUser extends Authenticatable
 
     public function isInRoles($roles)
     {
-        return !!($roles->intersect($this->role)->count());
+        return !!$roles->intersect($this->role)->count();
     }
 
     //分配角色,参数是对象

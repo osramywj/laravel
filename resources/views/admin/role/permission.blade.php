@@ -18,6 +18,7 @@
                                 {{csrf_field()}}
                                 <div class="form-group">
                                     @foreach($permissions as $permission)
+
                                     <div class="checkbox">
                                         <label>
                                             <input type="checkbox" name="permissions[]"
